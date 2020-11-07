@@ -1,0 +1,36 @@
+h5{
+    text-align: center;
+    font-size: 30px;
+    font-family: sans-serif; 
+}
+
+
+p{
+    font-size: 22px;
+    padding-left: 30px;
+    padding-bottom: 5px;
+    padding-top : 5px;
+    margin: 0px 0px;
+    font-style: unset;
+}
+
+summary{
+    font-size: 23px;
+    padding: 0px 0px;
+    margin: 10px;
+}
+
+.Sumario{
+    padding-left:25px ;
+}
+
+a{
+    font-size: 22px;
+    padding-left: 30px;
+    padding-bottom: 5px;
+    padding-top : 5px;
+    margin: 0px 0px;
+    font-style: unset;
+    color: green;
+  text-decoration: none;
+}

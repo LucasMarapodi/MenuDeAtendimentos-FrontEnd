@@ -1,0 +1,49 @@
+<h6>Preencha o formulario para Realizar o Cadastro do medico :</h6>
+
+<div class="alert alert-secondary" role="alert" [hidden]="!mensagemProcessamento">
+    <strong>{{mensagemProcessamento}}</strong>
+</div>
+<!-- mensagem de sucesso -->
+<div class="alert alert-success" role="alert" [hidden]="!mensagemSucesso">
+    <strong>{{mensagemSucesso}}</strong>
+    <button type="button" class="close" (click)="limparMensagemSucesso()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<!-- mensagem de erro -->
+<div class="alert alert-danger" role="alert" [hidden]="!mensagemErro">
+    <strong>{{mensagemErro}}</strong>
+    <button type="button" class="close" (click)="limparMensagemErro()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form #formCadastro="ngForm" (submit)="cadastrarMedico(formCadastro)">
+            <label>Nome do medico:</label>
+            <input type="text" class="form-control" autocomplete="off" placeholder="Nome do medico" name="Nome"
+                ngModel />
+            <div class="text-danger" *ngFor="let msg of errosNome">
+                {{msg}}
+            </div>
+            <br />
+            <label>Crm:</label>
+            <input type="text" class="form-control" autocomplete="off" placeholder="Crm" name="Crm" ngModel />
+            <div class="text-danger" *ngFor="let msg of errosCrm">
+                {{msg}}
+            </div>
+            <br />
+            <label>Especialização:</label>
+            <input type="text" class="form-control" autocomplete="off" placeholder="Especialização"
+                name="Especializacao" ngModel />
+            <div class="text-danger" *ngFor="let msg of errosEspecializacao">
+                {{msg}}
+            </div>
+            <br />
+            <input type="submit" value="Cadastrar medico" class="btn btn-success btn-sm" />
+        </form>
+        <br />
+    </div>
+</div>

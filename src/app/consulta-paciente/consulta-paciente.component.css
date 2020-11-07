@@ -1,0 +1,22 @@
+th{
+    background-color: gray;
+    text-align: center;
+    font-size: 23px;
+    color: white;
+    border: black solid 5px;
+    font-style: italic;
+}
+
+td{
+    text-align: center;
+    font-size: 18px;
+    border: black solid 3px;
+    background-color: rgb(230, 230, 230);
+    font-family: sans-serif;
+}
+
+h5{
+    text-align: center;
+    font-size: 30px;
+    font-family: sans-serif; 
+}

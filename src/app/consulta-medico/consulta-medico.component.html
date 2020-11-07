@@ -1,0 +1,94 @@
+<h5>Consulta de Medicos</h5>
+<hr />
+
+<div class="alert alertsuccess" role="alert" [hidden]="!mensagemSucessoExclusao">
+    <strong>{{mensagemSucessoExclusao}}</strong>
+    <button type="button" class="close" (click)="limparMensagemSucessoExclusao()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="alert alert-danger" role="alert" [hidden]="!mensagemErroExclusao">
+    <strong>{{mensagemErroExclusao}}</strong>
+    <button type="button" class="close" (click)="limparMensagemErroExclusao()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<table class="table table-bordered table-hover table-stripped">
+    <thead>
+        <tr>
+            <th>Nome do Medico</th>
+            <th>CRM</th>
+            <th>Especialização</th>
+            <th>Operações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of listagemDeMedicos">
+            <td>{{item.nome}}</td>
+            <td>{{item.crm}}</td>
+            <td>{{item.especializacao}}</td>
+
+            <td width='200'>
+                <button class="btn btn-sm btn-primary mr-1" (click)="exibirMedico(item)" data-target="#janelaedicao"
+                    data-toggle="modal">
+                    Atualizar</button>
+                <button class="btn btn-sm btn-danger" (click)="excluirMedico(item.idMedico)">
+                    Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="janelaedicao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered
+    modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Atualizar Medico</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert" [hidden]="!mensagemSucessoEdicao">
+                    <strong>{{mensagemSucessoEdicao}}</strong>
+                    <button type="button" class="close" (click)="limparMensagemSucessoEdicao()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-danger" role="alert" [hidden]="!mensagemErroEdicao">
+                    <strong>{{mensagemErroEdicao}}</strong>
+                    <button type="button" class="close" (click)="limparMensagemErroEdicao()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form #formEdicao="ngForm" (submit)="atualizarMedico(formEdicao)">
+                    <input type="hidden" name="idMedico" [(ngModel)]="medicoEdicao.idMedico" />
+                    <label>Nome do Medico:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Nome do Medico" name="Nome"
+                        [(ngModel)]="medicoEdicao.nome" />
+                    <div class="text-danger" *ngFor="let msg of errosNome">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Crm:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="CRM" name="Crm"
+                        [(ngModel)]="medicoEdicao.crm" />
+                    <div class="text-danger" *ngFor="let msg of errosCrm">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Especialização:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Especialização"
+                        name="Especializacao" [(ngModel)]="medicoEdicao.especializacao" />
+                    <div class="text-danger" *ngFor="let msg of errosEspecializacao">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <input type="submit" value="Atualizar Medico" class="btn btn-success btn-sm" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

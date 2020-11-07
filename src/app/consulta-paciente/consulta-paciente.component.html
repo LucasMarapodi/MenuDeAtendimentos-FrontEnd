@@ -1,0 +1,113 @@
+<h5>Consulta de Pacientes</h5>
+<hr />
+
+<div class="alert alert-success" role="alert" [hidden]="!mensagemSucessoExclusao">
+    <strong>{{mensagemSucessoExclusao}}</strong>
+    <button type="button" class="close" (click)="limparMensagemSucessoExclusao()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="alert alert-danger" role="alert" [hidden]="!mensagemErroExclusao">
+    <strong>{{mensagemErroExclusao}}</strong>
+    <button type="button" class="close" (click)="limparMensagemErroExclusao()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<table class="table table-bordered table-hover table-stripped">
+    <thead>
+        <tr>
+            <th>Nome do Paciente</th>
+            <th>Email</th>
+            <th>Cpf</th>
+            <th>Telefone</th>
+            <th>Data de Nascimento</th>
+            <th>Operações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of listagemDePacientes">
+            <td>{{item.nome}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.cpf}}</td>
+            <td>{{item.telefone}}</td>
+            <td>{{item.dataNascimento}}</td>
+
+            <td width='200'>
+                <button class="btn btn-sm btn-primary mr-1" (click)="exibirPaciente(item)" data-target="#janelaedicao"
+                    data-toggle="modal">
+                    Atualizar</button>
+                <button class="btn btn-sm btn-danger" (click)="excluirPaciente(item.idPaciente)">
+                    Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="janelaedicao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered
+    modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Atualizar Paciente</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert" [hidden]="!mensagemSucessoEdicao">
+                    <strong>{{mensagemSucessoEdicao}}</strong>
+                    <button type="button" class="close" (click)="limparMensagemSucessoEdicao()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-danger" role="alert" [hidden]="!mensagemErroEdicao">
+                    <strong>{{mensagemErroEdicao}}</strong>
+                    <button type="button" class="close" (click)="limparMensagemErroEdicao()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form #formEdicao="ngForm" (submit)="atualizarPaciente(formEdicao)">
+                    <input type="hidden" name="idPaciente" [(ngModel)]="pacienteEdicao.idPaciente" />
+                    <label>Nome do Paciente:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Nome do Paciente"
+                        name="Nome" [(ngModel)]="pacienteEdicao.nome" />
+                    <div class="text-danger" *ngFor="let msg of errosNome">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Email:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Email" name="Email"
+                        [(ngModel)]="pacienteEdicao.email" />
+                    <div class="text-danger" *ngFor="let msg of errosEmail">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Cpf:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Cpf" name="Cpf"
+                        [(ngModel)]="pacienteEdicao.cpf" />
+                    <div class="text-danger" *ngFor="let msg of errosCpf">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Telefone:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Telefone" name="Telefone"
+                        [(ngModel)]="pacienteEdicao.telefone" />
+                    <div class="text-danger" *ngFor="let msg of errosTelefone">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Data de Nascimento:</label>
+                    <input type="text" class="form-control" name="DataNascimento" placeholder="dd/mm/aaaa"
+                        [(ngModel)]="pacienteEdicao.dataNascimento" />
+                    <div class="text-danger" *ngFor="let msg of errosDataNascimento">
+                        {{msg}}
+                    </div>
+                    <br />
+
+                    <input type="submit" value="Atualizar Paciente" class="btn btn-success btn-sm" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

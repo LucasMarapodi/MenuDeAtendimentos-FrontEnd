@@ -1,0 +1,64 @@
+<h6>Preencha o formulario para Realizar o Cadastro do Atendimento :</h6>
+
+<div class="alert alert-secondary" role="alert" [hidden]="!mensagemProcessamento">
+    <strong>{{mensagemProcessamento}}</strong>
+</div>
+
+<div class="alert alert-success" role="alert" [hidden]="!mensagemSucesso">
+    <strong>{{mensagemSucesso}}</strong>
+    <button type="button" class="close" (click)="limparMensagemSucesso()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="!mensagemErro">
+    <strong>{{mensagemErro}}</strong>
+    <button type="button" class="close" (click)="limparMensagemErro()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form #formCadastro="ngForm" (submit)="cadastrarAtendimento(formCadastro)">
+            <label>Local:</label>
+            <input type="text" class="form-control" autocomplete="off" placeholder="local" name="local" ngModel />
+            <div class="text-danger" *ngFor="let msg of errosLocal">
+                {{msg}}
+            </div>
+            <br />
+            <label>Nome do Medico:</label>
+            <select class="form-control" placeholder="Medico" name="IdMedico" ngModel>
+                <option *ngFor="let item of medicos" [value]="item.idMedico">{{item.nome}}</option>
+            </select>
+            <div class="text-danger" *ngFor="let msg of errosIdMedico">
+                {{msg}}
+            </div>
+            <br />
+            <label>Nome do Paciente:</label>
+            <select class="form-control" placeholder="Paciente" name="IdPaciente" ngModel>
+                <option *ngFor="let item of pacientes" [value]="item.idPaciente">{{item.nome}}</option>
+            </select>
+            <div class="text-danger" *ngFor="let msg of errosIdPaciente">
+                {{msg}}
+            </div>
+            <br />
+            <label>Data do Atendimento:</label>
+            <input type="date" class="form-control" placeholder="DD/MM/AAAA" name="DataAtendimento" ngModel />
+            <div class="text-danger" *ngFor="let msg of errosDataAtendimento">
+                {{msg}}
+            </div>
+            <br />
+            <label>Observações :</label>
+            <input type="text" class="form-control" autocomplete="off" placeholder="Observações" name="Observacoes"
+                ngModel />
+            <div class="text-danger" *ngFor="let msg of errosObservacoes">
+                {{msg}}
+            </div>
+            <br />
+            <input type="submit" value="Cadastrar Atendimento" class="btn btn-success btn-sm" />
+        </form>
+        <br />
+    </div>
+</div>

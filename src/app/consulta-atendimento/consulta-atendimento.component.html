@@ -1,0 +1,113 @@
+<h5>Consulta de Atendimentos</h5>
+<hr />
+
+<div class="alert alert-success" role="alert" [hidden]="!mensagemSucessoExclusao">
+    <strong>{{mensagemSucessoExclusao}}</strong>
+    <button type="button" class="close" (click)="limparMensagemSucessoExclusao()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<table class="table table-bordered table-hover table-stripped">
+    <thead>
+
+        <tr>
+            <th>Local</th>
+            <th>Data</th>
+            <th>Observacões</th>
+            <th>Medico</th>
+            <th>Especialização</th>
+            <th>Paciente</th>
+            <th>Telefone</th>
+            <th>Operações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of listagemDeAtendimentos">
+            <td>{{item.local}}</td>
+            <td>{{item.dataAtendimento}}</td>
+            <td>{{item.observacoes}}</td>
+            <td>{{item.medico.nome}}</td>
+            <td>{{item.medico.especializacao}}</td>
+            <td>{{item.paciente.nome}}</td>
+            <td>{{item.paciente.telefone}}</td>
+
+            <td width='225'>
+                <button class="btn btn-sm btn-primary mr-1" (click)="exibirAtendimento(item)"
+                    data-target="#janelaedicao" data-toggle="modal">
+                    Atualizar</button>
+                <button class="btn btn-sm btn-danger" (click)="excluirAtendimento(item.idAtendimento)">
+                    Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="janelaedicao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered
+    modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Atualizar Atendimento</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert" [hidden]="!mensagemSucessoEdicao">
+                    <strong>{{mensagemSucessoEdicao}}</strong>
+                    <button type="button" class="close" (click)="limparMensagemSucessoEdicao()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-danger" role="alert" [hidden]="!mensagemErroEdicao">
+                    <strong>{{mensagemErroEdicao}}</strong>
+                    <button type="button" class="close" (click)="limparMensagemErroEdicao()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form #formEdicao="ngForm" (submit)="atualizarAtendimento(formEdicao)">
+                    <input type="hidden" name="idAtendimento" [(ngModel)]="atendimentoEdicao.idAtendimento" />
+                    <label>Data do Atendimento:</label>
+                    <input type="text" class="form-control" name="dataAtendimento" placeholder="dd/mm/aaaa"
+                        [(ngModel)]="atendimentoEdicao.dataAtendimento" />
+                    <div class="text-danger" *ngFor="let msg of errosDataAtendimento">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Local do Atendimento:</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Local" name="Local"
+                        [(ngModel)]="atendimentoEdicao.local" />
+                    <div class="text-danger" *ngFor="let msg of errosLocal">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Medico:</label>
+                    <select class="form-control" placeholder="Medico" name="idMedico" ngModel>
+                        <option *ngFor="let item of medicos" [value]="item.idMedico">{{item.nome}}</option>
+                    </select>
+                    <div class="text-danger" *ngFor="let msg of errosIdMedico">
+                        {{msg}}
+                    </div>
+                    <label>Paciente:</label>
+                    <select class="form-control" placeholder="Paciente" name="idPaciente" ngModel>
+                        <option *ngFor="let item of pacientes" [value]="item.idPaciente">{{item.nome}}</option>
+                    </select>
+                    <div class="text-danger" *ngFor="let msg of errosIdPaciente">
+                        {{msg}}
+                    </div>
+                    <br />
+                    <label>Observações :</label>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Observacoes"
+                        name="Observacoes" [(ngModel)]="atendimentoEdicao.observacoes" />
+                    <div class="text-danger" *ngFor="let msg of errosObservacoes">
+                        {{msg}}
+                    </div>
+                    <br />
+
+                    <input type="submit" value="Atualizar Atendimento" class="btn btn-success btn-sm" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
